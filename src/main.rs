@@ -38,10 +38,12 @@ fn main() {
     if let Some(n) = cli.test {
         create_test_csv(n, cli.statements);
     }
+
     let csv = "./test.csv";
     if cli.build {
         build_query(csv);
     }
+
     if cli.c_build {
         build_query_c(csv)
     }
