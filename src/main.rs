@@ -8,6 +8,7 @@ mod build_query;
 mod csv;
 mod gen_c;
 mod radix_array;
+mod struct_builder;
 mod utils;
 
 #[cfg(test)]
