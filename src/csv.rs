@@ -1,0 +1,40 @@
+use crate::utils::intersperse;
+use std::{
+    fs,
+    io::{BufWriter, Write},
+};
+
+pub fn create_test_csv(n: i32, statements: i32) {
+    let params = (0..n).map(|n| format!("param_{n:#02}"));
+
+    let header: String = intersperse(params.clone(), ",") + "\n";
+
+    let radix = 20;
+    let mut radix_array = crate::radix_array::RadixArray::new(radix, n);
+    let param_array = params.clone().collect::<Vec<String>>();
+
+    let gen_range = || {
+        let a = rand::random_range(0..=40);
+        let b = rand::random_range(60..100);
+        (a, b)
+    };
+
+    let test_csv = fs::File::create("./test.csv").unwrap();
+    let mut bufwrite = BufWriter::new(test_csv);
+    bufwrite.write(header.as_bytes()).unwrap();
+    for _ in 0..statements {
+        let line = {
+            let iter = param_array.iter().map(|p| {
+                let (min, max) = gen_range();
+                format!("{p} > {min} && {p} <= {max}")
+            });
+            let predicate = intersperse(iter, " && ");
+
+            let result = radix_array.format_array();
+            radix_array.add(1);
+
+            predicate + "," + result.as_str() + "\n"
+        };
+        bufwrite.write(line.as_bytes()).unwrap();
+    }
+}
