@@ -63,5 +63,5 @@ pub fn build_query_c(path: impl Into<String>) {
 
     let text = fuct_text.join("\n");
 
-    std::fs::write("./health.c", &text).unwrap();
+    std::fs::write("./c/health.c", &text).unwrap();
 }
