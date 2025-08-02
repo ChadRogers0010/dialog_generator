@@ -1,6 +1,6 @@
 /target
 *.csv*
 c/health.c
-src/dialog/*
+src/dialog_test/*
 src/health.rs
 
