@@ -19,6 +19,8 @@ pub fn create_test_csv(n: i32, statements: i32) {
         (a, b)
     };
 
+    let mut count = 0;
+
     let test_csv = fs::File::create("./test.csv").unwrap();
     let mut bufwrite = BufWriter::new(test_csv);
     bufwrite.write(header.as_bytes()).unwrap();
@@ -33,8 +35,9 @@ pub fn create_test_csv(n: i32, statements: i32) {
             let result = radix_array.format_array();
             radix_array.add(1);
 
-            predicate + "," + result.as_str() + "\n"
+            count.to_string() + "," + predicate.as_str() + "," + result.as_str() + "\n"
         };
+        count += 1;
         bufwrite.write(line.as_bytes()).unwrap();
     }
 }
