@@ -1,7 +1,5 @@
 use clap::Parser;
 
-use build_query::build_query;
-use csv::create_test_csv;
 use gen_c::build_query_c;
 use test_dialog_test::test_dialog_test;
 
@@ -21,48 +19,42 @@ mod test_dialog_test;
 
 #[derive(Parser)]
 struct Cli {
-    /// Build the rust verion
-    #[arg(short)]
-    build: bool,
+    #[arg(short, default_value = "./test.csv")]
+    csv_path: String,
 
-    /// build the c version
-    #[arg(short)]
-    c_build: bool,
-
-    /// Number of parameters
-    #[arg(short)]
-    test: Option<i32>,
-
-    /// number of if statements
-    #[arg(short, default_value = "100")]
-    statements: i32,
-
-    #[arg(short)]
-    query: bool,
-
-    #[arg(short)]
-    new_test: bool,
+    #[command(subcommand)]
+    command: Commands,
+}
+#[derive(clap::Subcommand)]
+enum Commands {
+    Csv {
+        statements: u32,
+        predicates: u32,
+    },
+    Build {
+        #[arg(default_value = "100")]
+        lines_per_module: u32,
+    },
+    BuildC {
+        #[arg(default_value = "100")]
+        lines_per_module: u32,
+    },
+    Test,
 }
 
 fn main() {
     let cli = Cli::parse();
 
-    if let Some(n) = cli.test {
-        create_test_csv(n, cli.statements);
+    match cli.command {
+        Commands::Csv {
+            statements,
+            predicates,
+        } => csv::create_test_csv(predicates, statements),
+        Commands::Build { lines_per_module } => {
+            struct_builder::build_query(cli.csv_path, lines_per_module as usize)
+        }
+        #[allow(unused)]
+        Commands::BuildC { lines_per_module } => build_query_c(cli.csv_path),
+        Commands::Test => test_dialog_test(),
     }
-
-    let csv = "./test.csv";
-    if cli.build {
-        build_query(csv);
-    }
-
-    if cli.c_build {
-        build_query_c(csv)
-    }
-
-    if cli.new_test {
-        struct_builder::build_query(csv, 100);
-    }
-
-    test_dialog_test();
 }

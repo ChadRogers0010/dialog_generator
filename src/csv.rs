@@ -4,13 +4,13 @@ use std::{
     io::{BufWriter, Write},
 };
 
-pub fn create_test_csv(n: i32, statements: i32) {
+pub fn create_test_csv(n: u32, statements: u32) {
     let params = (0..n).map(|n| format!("param_{n:#02}"));
 
     let header: String = intersperse(params.clone(), ",") + "\n";
 
     let radix = 20;
-    let mut radix_array = crate::radix_array::RadixArray::new(radix, n);
+    let mut radix_array = crate::radix_array::RadixArray::new(radix, n as i32);
     let param_array = params.clone().collect::<Vec<String>>();
 
     let gen_range = || {
