@@ -25,7 +25,6 @@ pub fn build_query(path: impl Into<String>) {
 
     for e in lines {
         let (predicate, string) = e.split_once(',').unwrap();
-
         let predicate_string = predicate
             .split(" ")
             .map(|s| {
