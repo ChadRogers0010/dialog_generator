@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn build_query(path: impl Into<String>) {
     let file = std::fs::read_to_string(path.into()).unwrap();
 
