@@ -21,22 +21,30 @@ mod test_dialog_test;
 
 #[derive(Parser)]
 struct Cli {
-    #[arg(short)]
     /// Build the rust verion
+    #[arg(short)]
     build: bool,
     /// build the c version
+
     #[arg(short)]
     c_build: bool,
-    #[arg(short)]
+
     /// Number of parameters
+    #[arg(short)]
     test: Option<i32>,
-    #[arg(short, default_value = "100")]
+
     /// number of if statements
+    #[arg(short, default_value = "100")]
     statements: i32,
+
     #[arg(short)]
     query: bool,
+
     #[arg(short)]
     new_test: bool,
+
+    #[arg(short, default_value = "./test.csv")]
+    csv_path: String,
 }
 
 fn main() {
@@ -45,7 +53,7 @@ fn main() {
         create_test_csv(n, cli.statements);
     }
 
-    let csv = "./test.csv";
+    let csv = cli.csv_path.as_str();
     if cli.build {
         build_query(csv);
     }
