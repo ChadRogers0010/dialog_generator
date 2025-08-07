@@ -25,6 +25,8 @@ struct Cli {
     #[command(subcommand)]
     command: Commands,
 }
+
+const LINES_PER_MODULE: &'static str = "100";
 #[derive(clap::Subcommand)]
 enum Commands {
     Csv {
@@ -32,11 +34,11 @@ enum Commands {
         predicates: u32,
     },
     Build {
-        #[arg(default_value = "100")]
+        #[arg(default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
     BuildC {
-        #[arg(default_value = "100")]
+        #[arg(default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
     Test,
