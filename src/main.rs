@@ -30,7 +30,9 @@ const LINES_PER_MODULE: &'static str = "100";
 #[derive(clap::Subcommand)]
 enum Commands {
     Csv {
+        #[arg(short)]
         statements: u32,
+        #[arg(short)]
         predicates: u32,
     },
     Build {
