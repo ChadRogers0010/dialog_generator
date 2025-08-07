@@ -1,4 +1,4 @@
-pub fn build_query_c(path: impl Into<String>) {
+pub fn build_query_c(path: impl Into<String>, _lines_per_module: usize) {
     let file = std::fs::read_to_string(path.into()).unwrap();
 
     let mut lines = file.lines();

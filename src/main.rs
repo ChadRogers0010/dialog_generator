@@ -33,11 +33,11 @@ enum Commands {
     },
     Build {
         #[arg(default_value = "100")]
-        lines_per_module: u32,
+        lines_per_module: usize,
     },
     BuildC {
         #[arg(default_value = "100")]
-        lines_per_module: u32,
+        lines_per_module: usize,
     },
     Test,
 }
@@ -50,11 +50,14 @@ fn main() {
             statements,
             predicates,
         } => csv::create_test_csv(predicates, statements),
+
         Commands::Build { lines_per_module } => {
-            struct_builder::build_query(cli.csv_path, lines_per_module as usize)
+            struct_builder::build_query(cli.csv_path, lines_per_module)
         }
+
         #[allow(unused)]
-        Commands::BuildC { lines_per_module } => build_query_c(cli.csv_path),
+        Commands::BuildC { lines_per_module } => build_query_c(cli.csv_path, lines_per_module),
+
         Commands::Test => test_dialog_test(),
     }
 }
