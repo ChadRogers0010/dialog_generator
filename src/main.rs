@@ -1,20 +1,10 @@
 use clap::Parser;
 
-use gen_c::build_query_c;
+use generate::{build_query, build_query_c, csv};
+
 use test_dialog_test::test_dialog_test;
 
-mod build_query;
-mod csv;
-pub mod dialog_test;
-mod gen_c;
-mod radix_array;
-mod struct_builder;
-mod utils;
-
-#[cfg(test)]
-mod health;
-#[cfg(test)]
-mod health_test;
+mod dialog_test;
 mod test_dialog_test;
 
 #[derive(Parser)]
@@ -55,9 +45,7 @@ fn main() {
             predicates,
         } => csv::create_test_csv(predicates, statements),
 
-        Commands::Build { lines_per_module } => {
-            struct_builder::build_query(cli.csv_path, lines_per_module)
-        }
+        Commands::Build { lines_per_module } => build_query(cli.csv_path, lines_per_module),
 
         #[allow(unused)]
         Commands::BuildC { lines_per_module } => build_query_c(cli.csv_path, lines_per_module),

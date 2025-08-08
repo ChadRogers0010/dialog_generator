@@ -2,7 +2,7 @@ use std::{
     fs,
     io::{BufWriter, Write},
 };
-use utils::intersperse;
+use utils::{RadixArray, intersperse};
 
 pub fn create_test_csv(predciates: u32, statements: u32) {
     let params = (0..predciates).map(|n| format!("param_{n:#02}"));
@@ -10,7 +10,7 @@ pub fn create_test_csv(predciates: u32, statements: u32) {
     let header: String = intersperse(params.clone(), ",") + "\n";
 
     let radix = 20;
-    let mut radix_array = crate::radix_array::RadixArray::new(radix, predciates as i32);
+    let mut radix_array = RadixArray::new(radix, predciates as i32);
     let param_array = params.clone().collect::<Vec<String>>();
 
     let gen_range = || {

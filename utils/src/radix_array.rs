@@ -1,4 +1,4 @@
-use crate::utils::intersperse;
+use super::intersperse;
 
 #[derive(Debug)]
 pub struct RadixArray {

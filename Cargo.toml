@@ -4,6 +4,14 @@ version = "0.1.0"
 edition = "2024"
 build = "./build.rs"
 
+[workspace]
+members = [
+ "utils",
+ "generate",
+]
+
 [dependencies]
 clap = { version = "4.5.42", features = ["derive"] }
 rand = "0.9.2"
+generate = { path = "./generate/" }
+utils = { path = "./utils/" }
