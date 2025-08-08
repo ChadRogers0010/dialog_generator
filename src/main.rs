@@ -2,9 +2,9 @@ use clap::Parser;
 
 use generate::{build_query, build_query_c, csv};
 
-use test_dialog_test::test_dialog_test;
+use dialog_test::dialog_test;
 
-mod test_dialog_test;
+mod dialog_test;
 
 #[derive(Parser)]
 struct Cli {
@@ -33,7 +33,22 @@ enum Commands {
         #[arg(default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
-    Test,
+    Test {
+        /// Number of times to run the test
+        #[arg(short, default_value = "1")]
+        count: u32,
+
+        /// Multithread with Rayon
+        #[arg(short)]
+        multithread: bool,
+
+        /// All responses succeed
+        #[arg(short)]
+        responses_true: bool,
+
+        #[arg(short)]
+        flatten: bool,
+    },
 }
 
 fn main() {
@@ -50,6 +65,11 @@ fn main() {
         #[allow(unused)]
         Commands::BuildC { lines_per_module } => build_query_c(cli.csv_path, lines_per_module),
 
-        Commands::Test => test_dialog_test(),
+        Commands::Test {
+            count,
+            multithread,
+            responses_true,
+            flatten,
+        } => dialog_test(count, responses_true, multithread, flatten),
     }
 }

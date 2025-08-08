@@ -82,20 +82,22 @@ pub fn build_query(path: impl Into<String> + Clone, lines_per_module: usize) {
     main_buf.write((module_headers + "\n").as_bytes()).unwrap();
 
     // function declaration
-    let mod_header =
-        String::from("pub fn query(predicates: &[i32], response: &mut Vec<&'static str>) {");
+    let mod_header = String::from(
+        "pub fn query() -> Vec<for<'a, 'b> fn(&'a [i32], &'b mut Vec<&'static str>)> {",
+    );
     main_buf.write(mod_header.as_bytes()).unwrap();
     main_buf.write(print_statement.as_bytes()).unwrap();
 
+    main_buf.write("    \nvec![\n".as_bytes()).unwrap();
     let modules_body = builder
         .module_handles
         .iter()
         .enumerate()
-        .map(|(i, _f)| format!("    mod_{i:#03}::mod_{i:#03}(predicates, response);"))
+        .map(|(i, _f)| format!("        mod_{i:#03}::mod_{i:#03},"))
         .fold(String::new(), |f, s| f + "\n" + &s);
 
     main_buf.write(modules_body.as_bytes()).unwrap();
-    main_buf.write("\n}".as_bytes()).unwrap();
+    main_buf.write("\n    ]\n}".as_bytes()).unwrap();
 }
 
 fn new_module(dir_path: String, n: usize) -> (BufWriter<File>, String) {
