@@ -51,6 +51,7 @@ pub fn dialog_test(count: u32, responses_true: bool, multithread: bool, flatten:
     }
 }
 
+#[allow(unused)]
 fn test_all(
     count: u32,
     queries: &Vec<for<'a, 'b> fn(&'a [i32], &'b mut Vec<&'static str>)>,
@@ -61,6 +62,7 @@ fn test_all(
         ((true, false), "multithread"),
         ((true, true), "multithread_flatten"),
     ];
+    let mut time_scores = Vec::new();
 
     for ((multithread, flatten), name) in permutations {
         let mut response_count;
@@ -82,21 +84,26 @@ fn test_all(
             average_sum += elapsed.as_nanos();
 
             response_count = responses.len();
-            print!("{name}");
-            print!(" | Response {}", response_count);
-            println!(" | Time elapsed: {elapsed:?}");
+            // print!("{name}");
+            // print!(" | Response {}", response_count);
+            // println!(" | Time elapsed: {elapsed:?}");
 
             if i != count - 1 {
                 flush_cache();
             }
             responses.clear();
         }
-        if count > 1 {
-            println!(
-                "{name} average: {:?}",
-                Duration::from_nanos(average_sum as u64 / count as u64)
-            );
-        }
+        let average_time = Duration::from_nanos(average_sum as u64 / count as u64);
+
+        time_scores.push((name, average_time));
+
+        // if count > 1 {
+        //     println!("{name} average: {:?}", Duration::from_nanos(average_time));
+        // }
+    }
+
+    for (name, average_time) in time_scores {
+        println!("{name}: {average_time:?}");
     }
 }
 
