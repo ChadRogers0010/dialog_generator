@@ -72,15 +72,14 @@ pub fn build_query(path: impl Into<String> + Clone, lines_per_module: usize) {
     let mut main_buf = BufWriter::new(main_mod);
 
     // make module declaration
-    main_buf.write("mod mod_constants;\n".as_bytes()).unwrap();
     let module_headers = builder
         .module_handles
         .iter()
         .enumerate()
         .map(|(i, _f)| format!("mod mod_{:#03};", i))
         .fold(String::new(), |f, s| f + &s + "\n");
-    main_buf.write((module_headers + "\n").as_bytes()).unwrap();
-
+    main_buf.write((module_headers).as_bytes()).unwrap();
+    main_buf.write("mod mod_constants;\n\n".as_bytes()).unwrap();
     // function declaration
     let mod_header = String::from(
         "pub fn query() -> Vec<for<'a, 'b> fn(&'a [i32], &'b mut Vec<&'static str>)> {",
@@ -88,7 +87,7 @@ pub fn build_query(path: impl Into<String> + Clone, lines_per_module: usize) {
     main_buf.write(mod_header.as_bytes()).unwrap();
     main_buf.write(print_statement.as_bytes()).unwrap();
 
-    main_buf.write("    \nvec![\n".as_bytes()).unwrap();
+    main_buf.write("\n    vec![".as_bytes()).unwrap();
     let modules_body = builder
         .module_handles
         .iter()
