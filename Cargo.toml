@@ -17,3 +17,4 @@ generate = { path = "./generate/" }
 dialog_lib = { path = "./dialog_lib/" }
 clap = { version = "4.5.42", features = ["derive"] }
 rayon = "1.10.0"
+clap-markdown = "0.1.5"
