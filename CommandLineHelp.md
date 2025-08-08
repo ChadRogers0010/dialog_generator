@@ -16,10 +16,10 @@ This document contains the help content for the `dialog` command-line program.
 
 ###### **Subcommands:**
 
-* `csv` — 
-* `build` — 
-* `build-c` — 
-* `test` — 
+* `csv` — Generate a test csv
+* `build` — build the Dialog_lib::query()
+* `build-c` — build the c query
+* `test` — Test a build
 
 ###### **Options:**
 
@@ -31,6 +31,8 @@ This document contains the help content for the `dialog` command-line program.
 
 ## `dialog csv`
 
+Generate a test csv
+
 **Usage:** `dialog csv -s <STATEMENTS> -p <PREDICATES>`
 
 ###### **Options:**
@@ -41,6 +43,8 @@ This document contains the help content for the `dialog` command-line program.
 
 
 ## `dialog build`
+
+build the Dialog_lib::query()
 
 **Usage:** `dialog build [OPTIONS]`
 
@@ -54,6 +58,8 @@ This document contains the help content for the `dialog` command-line program.
 
 ## `dialog build-c`
 
+build the c query
+
 **Usage:** `dialog build-c [OPTIONS]`
 
 ###### **Options:**
@@ -66,6 +72,8 @@ This document contains the help content for the `dialog` command-line program.
 
 ## `dialog test`
 
+Test a build
+
 **Usage:** `dialog test [OPTIONS]`
 
 ###### **Options:**
@@ -73,10 +81,10 @@ This document contains the help content for the `dialog` command-line program.
 * `-c <COUNT>` — Number of times to run the test
 
   Default value: `1`
-* `-m` — Multithread with Rayon
 * `-r` — All responses succeed
-* `-f`
-* `-a`
+* `-m` — Multithread with Rayon
+* `-f` — Rayon's into_par_iter().map().collect()
+* `-a` — Test every test case
 
 
 
@@ -90,10 +98,10 @@ This document contains the help content for the `dialog` command-line program.
 Usage: dialog [OPTIONS] [COMMAND]
 
 Commands:
-  csv      
-  build    
-  build-c  
-  test     
+  csv      Generate a test csv
+  build    build the Dialog_lib::query()
+  build-c  build the c query
+  test     Test a build
   help     Print this message or the help of the given subcommand(s)
 
 Options:

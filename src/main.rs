@@ -24,6 +24,7 @@ const LINES_PER_MODULE: &'static str = "100";
 
 #[derive(clap::Subcommand, Debug)]
 enum Commands {
+    /// Generate a test csv
     Csv {
         #[arg(short)]
         statements: u32,
@@ -31,32 +32,37 @@ enum Commands {
         predicates: u32,
     },
 
+    /// build the Dialog_lib::query()
     Build {
         #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
 
+    /// build the c query
     BuildC {
         #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
 
+    /// Test a build
     Test {
         /// Number of times to run the test
         #[arg(short, default_value = "1")]
         count: u32,
 
-        /// Multithread with Rayon
-        #[arg(short)]
-        multithread: bool,
-
         /// All responses succeed
         #[arg(short)]
         responses_true: bool,
 
+        /// Multithread with Rayon
+        #[arg(short)]
+        multithread: bool,
+
+        /// Rayon's into_par_iter().map().collect()
         #[arg(short)]
         flatten: bool,
 
+        /// Test every test case
         #[arg(short)]
         all: bool,
     },
