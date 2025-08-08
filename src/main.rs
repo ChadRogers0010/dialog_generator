@@ -97,12 +97,16 @@ fn main() {
             predicates,
         }) => csv::create_test_csv(predicates, statements),
 
-        Some(Commands::Build { lines_per_module }) => build_query(cli.csv_path, lines_per_module),
+        Some(Commands::Build {
+            lines_per_module,
+            csv_path,
+        }) => build_query(csv_path, lines_per_module),
 
         #[allow(unused)]
-        Some(Commands::BuildC { lines_per_module }) => {
-            build_query_c(cli.csv_path, lines_per_module)
-        }
+        Some(Commands::BuildC {
+            lines_per_module,
+            csv_path,
+        }) => build_query_c(csv_path, lines_per_module),
 
         Some(Commands::Test {
             count,
