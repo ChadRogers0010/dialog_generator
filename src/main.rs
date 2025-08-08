@@ -2,8 +2,6 @@ use clap::Parser;
 
 use generate::{build_query, build_query_c, csv};
 
-use dialog_test::dialog_test;
-
 mod dialog_test;
 
 #[derive(Parser)]
@@ -26,11 +24,11 @@ enum Commands {
         predicates: u32,
     },
     Build {
-        #[arg(default_value = LINES_PER_MODULE)]
+        #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
     BuildC {
-        #[arg(default_value = LINES_PER_MODULE)]
+        #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
     },
     Test {
@@ -48,6 +46,9 @@ enum Commands {
 
         #[arg(short)]
         flatten: bool,
+
+        #[arg(short)]
+        all: bool,
     },
 }
 
@@ -70,6 +71,7 @@ fn main() {
             multithread,
             responses_true,
             flatten,
-        } => dialog_test(count, responses_true, multithread, flatten),
+            all,
+        } => dialog_test::dialog_test(count, responses_true, multithread, flatten, all),
     }
 }

@@ -18,3 +18,11 @@ where
     }
     string
 }
+
+pub fn flush_cache() {
+    let mut buffer = vec![0u8; 128 * 1024 * 1024];
+    for i in (0..buffer.len()).step_by(64) {
+        buffer[i] = i as u8;
+    }
+    std::hint::black_box(buffer);
+}

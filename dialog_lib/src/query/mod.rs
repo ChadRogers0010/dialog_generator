@@ -6,7 +6,7 @@ mod mod_004;
 mod mod_constants;
 
 pub fn query() -> Vec<for<'a, 'b> fn(&'a [i32], &'b mut Vec<&'static str>)> {
-    println!("statements: 500, predicates: 5, modules: 5");
+    println!("statements: 5000, predicates: 50, modules: 5");
 
     vec![
         mod_000::mod_000,
@@ -16,4 +16,3 @@ pub fn query() -> Vec<for<'a, 'b> fn(&'a [i32], &'b mut Vec<&'static str>)> {
         mod_004::mod_004,
     ]
 }
-
