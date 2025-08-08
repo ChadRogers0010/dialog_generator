@@ -6,12 +6,10 @@ mod dialog_test;
 
 #[derive(Parser, Debug)]
 struct Cli {
-    #[arg(short, default_value = "./test.csv")]
-    csv_path: String,
-
     #[command(subcommand)]
     command: Option<Commands>,
 
+    /// Debug print Cli
     #[arg(short, hide = true)]
     debug: bool,
 
@@ -26,8 +24,15 @@ const LINES_PER_MODULE: &'static str = "100";
 enum Commands {
     /// Generate a test csv
     Csv {
+        /// Path to csv
+        #[arg(short, default_value = "./test.csv")]
+        csv_path: String,
+
+        /// Number of if statements
         #[arg(short)]
         statements: u32,
+
+        /// Number of predicates to check
         #[arg(short)]
         predicates: u32,
     },
