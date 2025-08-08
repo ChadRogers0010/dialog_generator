@@ -23,7 +23,7 @@ pub fn build_query(path: impl Into<String> + Clone, lines_per_module: usize) {
         lines.clone().count() / lines_per_module
     );
 
-    let dir_path = "./src/dialog_test/".to_string();
+    let dir_path = "./dialog_lib/src/query/".to_string();
     fs::remove_dir_all(dir_path.clone()).unwrap();
     let _ = fs::create_dir(&dir_path);
 

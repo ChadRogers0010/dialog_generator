@@ -4,7 +4,6 @@ use generate::{build_query, build_query_c, csv};
 
 use test_dialog_test::test_dialog_test;
 
-mod dialog_test;
 mod test_dialog_test;
 
 #[derive(Parser)]
@@ -17,6 +16,7 @@ struct Cli {
 }
 
 const LINES_PER_MODULE: &'static str = "100";
+
 #[derive(clap::Subcommand)]
 enum Commands {
     Csv {

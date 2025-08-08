@@ -1,6 +1,4 @@
 /target
 *.csv*
 c/health.c
-src/dialog_test/*
-src/health.rs
-
+dialog_lib/src/query/mod_*.rs

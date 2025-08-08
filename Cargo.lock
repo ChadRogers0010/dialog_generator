@@ -115,10 +115,15 @@ name = "dialog"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "dialog_lib",
  "generate",
  "rand",
  "utils",
 ]
+
+[[package]]
+name = "dialog_lib"
+version = "0.1.0"
 
 [[package]]
 name = "generate"
