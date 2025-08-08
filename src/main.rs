@@ -24,10 +24,6 @@ const LINES_PER_MODULE: &'static str = "100";
 enum Commands {
     /// Generate a test csv
     Csv {
-        /// Path to csv
-        #[arg(short, default_value = "./test.csv")]
-        csv_path: String,
-
         /// Number of if statements
         #[arg(short)]
         statements: u32,
@@ -39,14 +35,24 @@ enum Commands {
 
     /// build the Dialog_lib::query()
     Build {
+        /// Number of lines per module
         #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
+
+        /// Path to csv
+        #[arg(short, default_value = "./test.csv")]
+        csv_path: String,
     },
 
     /// build the c query
     BuildC {
+        /// Number of lines per module
         #[arg(short,default_value = LINES_PER_MODULE)]
         lines_per_module: usize,
+
+        /// Path to csv
+        #[arg(short, default_value = "./test.csv")]
+        csv_path: String,
     },
 
     /// Test a build
