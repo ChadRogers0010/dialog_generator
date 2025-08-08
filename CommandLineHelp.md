@@ -83,7 +83,7 @@ Test a build
   Default value: `1`
 * `-r` — All responses succeed
 * `-m` — Multithread with Rayon
-* `-f` — Rayon's into_par_iter().map().collect()
+* `-f` — Rayon's into_par_iter().map().flatten().collect()
 * `-a` — Test every test case
 
 

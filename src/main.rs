@@ -69,7 +69,7 @@ enum Commands {
         #[arg(short)]
         multithread: bool,
 
-        /// Rayon's into_par_iter().map().collect()
+        /// Rayon's into_par_iter().map().flatten().collect()
         #[arg(short)]
         flatten: bool,
 
@@ -86,7 +86,6 @@ fn main() {
         println!("{cli:?}");
     }
 
-    // Invoked as: `$ my-app --markdown-help`
     if cli.markdown_help {
         clap_markdown::print_help_markdown::<Cli>();
     }
