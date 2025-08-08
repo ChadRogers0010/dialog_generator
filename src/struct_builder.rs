@@ -21,7 +21,7 @@ pub fn build_query(path: impl Into<String> + Clone, lines_per_module: usize) {
         "\n    println!(\"statements: {}, predicates: {}, modules: {}\");\n",
         lines.clone().count(),
         header.clone().split(",").count(),
-        lines_per_module
+        lines.clone().count() / lines_per_module
     );
 
     let dir_path = "./src/dialog_test/".to_string();
